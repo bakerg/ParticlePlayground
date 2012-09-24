@@ -9,7 +9,7 @@ public class MouseSeeker extends Particle{
 	private final int randFlux = 4;
 	
 	public MouseSeeker(int x, int y){
-		super(x,y,ParticleType.LINE);
+		super(x,y);
 	}
 	
 	public void update(){

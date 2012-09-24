@@ -10,7 +10,7 @@ public class GravityParticle extends Particle{
 	private final float dymax = 30;
 	
 	public GravityParticle(){
-		super(Mouse.getX(),ParticleWorld.winHeight-Mouse.getY(),ParticleType.LINE);
+		super(Mouse.getX(),ParticleWorld.winHeight-Mouse.getY());
 		dx += (Mouse.getDX()/5);
 		dy += Mouse.getDY()/-5;
 	}
@@ -33,7 +33,7 @@ public class GravityParticle extends Particle{
 		
 		
 		if(y>ParticleWorld.winHeight){
-			killParticle = true;
+			killParticle();
 		}
 	}
 }

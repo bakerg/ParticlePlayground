@@ -10,24 +10,21 @@ import org.newdawn.slick.Color;
 
 public class Particle {
 	
-	public boolean killParticle;
-	
-	private ParticleType type;
-	
+	private boolean dead;
+		
 	protected float prevx,prevy;
 	protected float x,y;
 	protected float mx,my;
 	
 	
 	private int pointSize;
-	private Color color;
+	public Color color;
 	
 	protected Random random;
 	
-	public Particle(int xPos, int yPos, ParticleType ptype){
+	public Particle(int xPos, int yPos){
 		x = xPos;
 		y = yPos;
-		type = ptype;
 		standardSetup();
 	}
 	
@@ -35,7 +32,7 @@ public class Particle {
 		random = new Random();
 		color = Color.green;
 		pointSize = 2;
-		killParticle = false;
+		dead = false;
 	}
 	
 	public void setColor(Color c){
@@ -53,18 +50,16 @@ public class Particle {
 	}
 	
 	public void render(){
-		glPointSize(pointSize);
-		color.bind();
-		if(type == ParticleType.LINE){
-			glBegin(GL_LINES);
-				glVertex2f(prevx,prevy);
-				glVertex2f(x,y);
-			glEnd();
-		}else if(type == ParticleType.POINT){
-			glBegin(GL_POINTS);
-			glVertex2f(x,y);
-		glEnd();
-		}
+
+	}
+	
+	//Base Class Only
+	protected void killParticle(){
+		dead = true;
+	}
+	
+	public boolean killed(){
+		return dead;
 	}
 	
 }

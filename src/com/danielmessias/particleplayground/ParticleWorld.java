@@ -15,9 +15,10 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class ParticleWorld {	
 	
+	//Current Particle System
+	ParticleSystem particleSystem;
+	
 	public Random random;
-	public ArrayList<Particle> particles;
-	public ArrayList<Particle> particlesRemove;
 	public Class particleClass;
 	public boolean addOnTick;
 	public boolean randomOnTick;
@@ -39,17 +40,9 @@ public class ParticleWorld {
 	public void start(){
 		createDisplay();
 		lastFPS = getTime();
-		random = new Random();
-		particles = new ArrayList<Particle>();
-		particlesRemove = new ArrayList<Particle>();
 
-		particleClass = GravityParticle.class;
-		
-		addOnTick = true;
-		randomOnTick = true;
-		tickRate = 50;
-		
-		//addParticles(100);
+		particleSystem = new SystemGravityParticle();
+		particleSystem.init();
 		
 		loop();
 	}
@@ -85,7 +78,7 @@ public class ParticleWorld {
 	
 	public void updateFPS() {
 	    if (getTime() - lastFPS > 1000) {
-	        Display.setTitle("Particle World, FPS: " + fps +" Particles: "+particles.size()); 
+	        Display.setTitle("Particle World, FPS: " + fps +" Particles: "+particleSystem.getParticlesAmount()); 
 	        fps = 0;
 	        lastFPS += 1000; 
 	    }
@@ -112,43 +105,18 @@ public class ParticleWorld {
 	}
 	
 	private void addParticles(int amount){
-		for(int i=0;i<amount;i++){
-			Particle p;
-			if(particleClass == MouseSeeker.class){
-				p = new MouseSeeker(random.nextInt(winWidth),random.nextInt(winHeight));
-			}else if(particleClass == GravityParticle.class){
-				p = new GravityParticle();
-			}else{
-				p = new Particle(0,0,ParticleType.POINT);
-			}
-			particles.add(p);
-		}
+		particleSystem.requestNewParticles(amount);
 	}
 	
 	private void removeParticles(int amount){
-		particles.retainAll(particles.subList(0,particles.size()-amount));
+		particleSystem.requestRemoveParticles(amount);
 	}
 	
 	private void run(){	
 		keyboardHandler();
 		drawBackground();
-				
-		if(addOnTick){
-			if(randomOnTick){
-				addParticles(random.nextInt(tickRate));
-			}else{
-				addParticles(tickRate);
-			}
-		}
+		particleSystem.update();
 		
-		for(Particle p : particles){
-			p.update();
-			p.render();
-			
-			if(p.killParticle) particlesRemove.add(p);
-		}
-		for(Particle pr : particlesRemove){particles.remove(pr);}
-		particlesRemove.clear();
 	}
 	
 	private void openConsole(){
