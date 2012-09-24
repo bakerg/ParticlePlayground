@@ -7,9 +7,11 @@ public class GoffParticle extends Particle {
 	private boolean invert = false;
 	int velocityX;
 	double velocityY;
+	float dx = 0;
 
 	public GoffParticle(int xPos, int yPos) {
 		super(xPos, yPos);
+		dx += (Mouse.getDX());
 	}
 	
 	public void update() {
@@ -20,6 +22,7 @@ public class GoffParticle extends Particle {
 		prevy = y;
 		
 		y+=velocityY;
+//		x+=velocityX;
 		
 //		if(Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
 //			invert = !invert;
@@ -38,9 +41,16 @@ public class GoffParticle extends Particle {
 		
 		if(y >= ParticleWorld.winHeight) {
 			velocityY = -0.8 * velocityY;
+			dx = (float) (-0.9*dx);
 		}
 		
-		if(SystemGoff.shouldKillParticles){
+		dx += (1-random.nextInt(3));
+		x+=dx;
+		
+		if(x < 0 || x > ParticleWorld.winWidth) {
+			dx = (float) (-0.8*dx);
+		}
+		if(dx == 0 && velocityY == 0) {
 			killParticle();
 		}
 	}
