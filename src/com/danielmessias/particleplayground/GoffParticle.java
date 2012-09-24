@@ -22,19 +22,7 @@ public class GoffParticle extends Particle {
 		prevy = y;
 		
 		y+=velocityY;
-//		x+=velocityX;
 		
-//		if(Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
-//			invert = !invert;
-//		}
-//		
-//		if(invert) {
-//			x = 800 - Mouse.getX();
-//			y = Mouse.getY();
-//		}else {
-//			x = Mouse.getX();
-//			y = 600 - Mouse.getY();
-//		}
 		if(y < ParticleWorld.winHeight && velocityY <= 15) {
 			velocityY++;
 		}
