@@ -41,7 +41,7 @@ public class ParticleWorld {
 		createDisplay();
 		lastFPS = getTime();
 
-		particleSystem = new SystemGravityParticle();
+		particleSystem = CurrentSystem.currentSystem;
 		particleSystem.init();
 		
 		loop();
