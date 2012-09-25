@@ -32,7 +32,7 @@ public class GoffParticle extends Particle {
 		
 		if(y >= ParticleWorld.winHeight) {
 			velocityY = -0.8 * velocityY;
-			dx = (float) (-0.9*dx);
+			dx = (float) (0.9*dx);
 			bounces++;
 		}
 		
