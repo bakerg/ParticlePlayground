@@ -1,10 +1,11 @@
 package com.danielmessias.particleplayground;
 
-import org.lwjgl.input.Keyboard;
+
+
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 
 public class GoffParticle extends Particle {
-	private boolean invert = false;
 	int velocityX;
 	double velocityY;
 	float dx = 0;
@@ -35,7 +36,6 @@ public class GoffParticle extends Particle {
 			bounces++;
 		}
 		
-	//	dx += (1-random.nextInt(3));
 		dx = (float) (dx * 0.95);
 		x+=dx;
 		
@@ -43,6 +43,19 @@ public class GoffParticle extends Particle {
 			dx = (float) (-0.9*dx);
 			velocityY = -0.98 * velocityY;
 		}
+		
+		if(ParticleWorld.winHeight - y >= ParticleWorld.winHeight/2) {
+			setColor(new Color(0,255,0));
+		}
+		
+		if(ParticleWorld.winHeight - y >= ParticleWorld.winHeight/4 && ParticleWorld.winHeight - y < ParticleWorld.winHeight/2) {
+			setColor(new Color(255,0,0));
+		}
+		
+		if(ParticleWorld.winHeight - y >= ParticleWorld.winHeight/8 && ParticleWorld.winHeight - y < ParticleWorld.winHeight/4) {
+			setColor(new Color(0,0,255));
+		}
+		
 		if(bounces > maxBounces) {
 			killParticle();
 		}
