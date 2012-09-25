@@ -8,6 +8,8 @@ public class GoffParticle extends Particle {
 	int velocityX;
 	double velocityY;
 	float dx = 0;
+	int bounces = 0;
+	final int maxBounces = 10;
 
 	public GoffParticle(int xPos, int yPos) {
 		super(xPos, yPos);
@@ -22,16 +24,22 @@ public class GoffParticle extends Particle {
 		prevy = y;
 		
 		y+=velocityY;
+<<<<<<< HEAD
 		
 
 		if(y < ParticleWorld.winHeight && velocityY <= 60) {
 
+=======
+
+		if(y < ParticleWorld.winHeight && velocityY <= 60) {
+>>>>>>> Modified Particle Death
 			velocityY++;
 		}
 		
 		if(y >= ParticleWorld.winHeight) {
 			velocityY = -0.8 * velocityY;
 			dx = (float) (-0.9*dx);
+			bounces++;
 		}
 		
 	//	dx += (1-random.nextInt(3));
@@ -42,7 +50,7 @@ public class GoffParticle extends Particle {
 			dx = (float) (-0.9*dx);
 			velocityY = -0.98 * velocityY;
 		}
-		if(dx < 0.02 && velocityY < 0.02) {
+		if(bounces > maxBounces) {
 			killParticle();
 		}
 	}
