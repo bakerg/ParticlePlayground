@@ -24,15 +24,8 @@ public class GoffParticle extends Particle {
 		prevy = y;
 		
 		y+=velocityY;
-<<<<<<< HEAD
-		
 
 		if(y < ParticleWorld.winHeight && velocityY <= 60) {
-
-=======
-
-		if(y < ParticleWorld.winHeight && velocityY <= 60) {
->>>>>>> Modified Particle Death
 			velocityY++;
 		}
 		
